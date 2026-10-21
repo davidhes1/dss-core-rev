@@ -479,13 +479,12 @@ body { font-size: calc(17px * var(--fs-scale)); }
 }
 .a11y-still *, .a11y-still *::before, .a11y-still *::after { animation: none !important; transition: none !important; }
 .nav .aa { font-weight: 800; padding: 0 9px; border: 2px solid var(--line); border-radius: 8px; }
-/* read aloud and report a problem */
+/* read aloud */
 .tools { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 6px; padding-top: 12px; border-top: 1px dashed var(--line); }
 .tools .btn { display: inline-flex; align-items: center; gap: 6px; }
-.tools .report { flex: 1 1 100%; }
-.report { margin: 10px 0; padding: 12px; border: 2px solid var(--line); border-radius: 12px; background: var(--surface); box-sizing: border-box; }
-.rpdiag { display: block; margin: 0 0 8px auto; font-size: .82rem; }
 .nav { flex-wrap: wrap; row-gap: 4px; }
+@media (max-width: 430px) { .nav a { padding: 8px 5px; font-size: .85rem; } .nav .aa { padding: 0 7px; } .brand { font-size: .88rem; } }
+@media (max-width: 400px) { .topbar .in { padding-left: 8px; padding-right: 8px; } .brand { font-size: .8rem; } .nav a { padding: 8px 4px; font-size: .82rem; } .nav .aa { padding: 0 5px; } }
 
 </style>
 </head>
@@ -5345,29 +5344,10 @@ MOCKS[4] = { paper: 2, title: 'Mock Paper 2, set B', short: 'Mock 2B', areas: 'A
       <h2>Preview</h2><div class="paper"><p>Phishing tricks people with fake messages. Pharming redirects them to a fake website. Learn one example of each.</p></div></div>`);
   }
 
-  /* ---------- report a problem: builds a message for students to send on Teams ---------- */
-  let RPN = 0;
-  function reportOpen(el) {
-    const n = ++RPN, box = document.createElement('div');
-    box.className = 'report'; box.dataset.ref = el.dataset.ref || ''; box.dataset.snip = el.dataset.snip || '';
-    box.innerHTML = `<b>Report a problem</b><p class="small muted" style="margin:2px 0 8px">${esc(box.dataset.ref)}</p>
-      <label class="field"><span>What is wrong?</span><select id="rpt${n}"><option>The answer marked as correct is wrong</option><option>My correct answer was marked wrong</option><option>A typo or unclear wording</option><option>A diagram or image problem</option><option>Something else</option></select></label>
-      <label class="field"><span>Details (optional)</span><textarea id="rpn${n}" rows="2" placeholder="For example: option C is also correct"></textarea></label>
-      <div class="btnrow"><button class="btn small primary" data-act="rpmake" data-n="${n}">Make my message</button></div><div id="rpo${n}"></div>`;
-    el.replaceWith(box);
-    const sel = $('#rpt' + n); if (sel) try { sel.focus({ preventScroll: true }); } catch (e) { /* ignore */ }
-  }
-  function reportMake(el) {
-    const n = el.dataset.n, box = el.closest('.report'), ty = $('#rpt' + n).value, note = ($('#rpn' + n).value || '').trim();
-    const msg = 'Revision portal problem report\nWhere: ' + box.dataset.ref + (box.dataset.snip ? '\nQuestion: ' + box.dataset.snip.replace(/\s+/g, ' ').slice(0, 160) : '') + '\nProblem: ' + ty + (note ? '\nDetails: ' + note : '') + '\nDate: ' + fmtDate(new Date());
-    $('#rpo' + n).innerHTML = `<label class="field"><span>Copy this and send it to your teacher on Teams</span><textarea id="rpm${n}" rows="5" readonly>${esc(msg)}</textarea></label><div class="btnrow"><button class="btn small hl" data-act="copy" data-copy="rpm${n}">Copy the message</button></div>`;
-  }
-
-  /* ---------- add read-aloud and report buttons to whatever screen is showing ---------- */
+  /* ---------- add the read-aloud button to whatever screen is showing ---------- */
   function decorate() {
     if (decorate.busy) return; decorate.busy = true;
     try {
-      app.querySelectorAll('.diagwrap[data-fig]:not([data-dec])').forEach(d => { d.dataset.dec = '1'; d.insertAdjacentHTML('beforeend', `<button class="linkbtn small rpdiag" data-act="rpopen" data-ref="${esc('Diagram ' + d.dataset.fig + ' on ' + (location.hash.replace('#/', '') || 'home'))}">Problem with this diagram?</button>`); });
       const wrap = app.querySelector('.wrap'); if (!wrap || wrap.querySelector('.tools')) return;
       const h = location.hash, qb = wrap.querySelector('.qbox');
       let ref = '', snip = '', read = '';
@@ -5377,8 +5357,8 @@ MOCKS[4] = { paper: 2, title: 'Mock Paper 2, set B', short: 'Mock 2B', areas: 'A
       else if (/^#\/mock\/\d+\/(q|mark)\/\d+/.test(h) && wrap.querySelector('.equestion')) { const pp = h.split('/'), p = +pp[2], q = mockQs(p)[+pp[4]]; if (q) { ref = MOCKS[p].short + ', question ' + q.n; snip = q.stem || (q.parts[0] || {}).q || ''; read = '.equestion'; } }
       else if (/^#\/flash\//.test(h) && wrap.querySelector('.fcard') && FC && FC.items && FC.items[FC.i]) { const c = FC.items[FC.i]; ref = 'Flashcard, topic ' + c.tid + ': ' + c.f; snip = c.b; read = '.fcard'; }
       else if (/^#\/topic\/[^/]+$/.test(h) && wrap.querySelector('.lede')) { ref = 'Topic ' + h.split('/')[2] + ' knowledge organiser'; read = '.banner h1, .lede, .must'; }
-      if (!ref) return;
-      wrap.insertAdjacentHTML('beforeend', `<div class="tools">${canSpeak ? `<button class="btn small" data-act="rdgo" data-read="${esc(read)}" aria-pressed="false">${iconSvg('speaker', 18)}<span class="rl">Read aloud</span></button>` : ''}<button class="btn small" data-act="rpopen" data-ref="${esc(ref)}" data-snip="${esc(String(snip).slice(0, 220))}">${iconSvg('flag', 18)}<span>Report a problem</span></button></div>`);
+      if (!ref || !canSpeak) return;
+      wrap.insertAdjacentHTML('beforeend', `<div class="tools"><button class="btn small" data-act="rdgo" data-read="${esc(read)}" aria-pressed="false">${iconSvg('speaker', 18)}<span class="rl">Read aloud</span></button></div>`);
     } finally { decorate.busy = false; }
   }
   new MutationObserver(decorate).observe(app, { childList: true });
@@ -5421,8 +5401,6 @@ MOCKS[4] = { paper: 2, title: 'Mock Paper 2, set B', short: 'Mock 2B', areas: 'A
     if (act === 'pswap' || act === 'preplan') { plannerAct(act, el); return; }
     if (['mkcode', 'mkbackup', 'copy', 'restore'].includes(act)) { shareAct(act, el); return; }
     if (act === 'tvgo') { renderTeacher(); return; }
-    if (act === 'rpopen') { reportOpen(el); return; }
-    if (act === 'rpmake') { reportMake(el); return; }
     if (act === 'rdgo' && canSpeak) { readGo(el); return; }
     if (act === 'rdtest' && canSpeak) { speak('This is how the portal sounds when it reads to you.'); return; }
     if (act === 'nostamps') { P.stamps = false; save(); document.querySelectorAll('.stampbox').forEach(b => b.remove()); return; }
