@@ -6,7 +6,7 @@
 <title>Core exam revision</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:wght@600;700;800&family=Overpass:wght@700;800&family=IBM+Plex+Mono:wght@500;700&family=Space+Grotesk:wght@700&family=Fraunces:wght@700;800&family=Special+Elite&family=Bangers&family=Anton&family=VT323&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #F4F6FA; --surface: #FFFFFF; --surface2: #EBEFF7; --ink: #0E1B35; --muted: #52607C; --line: #CFD7E6;
@@ -485,6 +485,165 @@ body { font-size: calc(17px * var(--fs-scale)); }
 .nav { flex-wrap: wrap; row-gap: 4px; }
 @media (max-width: 430px) { .nav a { padding: 8px 5px; font-size: .85rem; } .nav .aa { padding: 0 7px; } .brand { font-size: .88rem; } }
 @media (max-width: 400px) { .topbar .in { padding-left: 8px; padding-right: 8px; } .brand { font-size: .8rem; } .nav a { padding: 8px 4px; font-size: .82rem; } .nav .aa { padding: 0 5px; } }
+
+/* ===== DISTRICTS: one graphite shell, a different visual style for each area of the portal =====
+   The district is set on <html data-district> by districtFor() in app.js. Light districts have dark versions;
+   Blueprint, Retro Terminal and SOC Dashboard are dark by design and use the dark diagram palette. */
+:root[data-district="transit"] { --bg: #F3F4F6; --surface: #FFFFFF; --surface2: #E9ECF1; --ink: #15171D; --muted: #555C69; --line: #D3D8E0; --line-d: #15171D; --accent: #C41E19; --accent-tint: #FDE3E1; --hl: #FFD329; --hl-ink: #15171D; --f-head: 'Overpass', var(--f-body); --d-bar: #DC241F; }
+:root[data-district="blueprint"] { --red: #FF7C86; --red-tint: #3B1B22; --green: #5FD6A2; --green-tint: #123428; --amber: #FFC165; --amber-tint: #382A10; --a1: #7FA3FF; --a2: #4CD0CB; --a3: #C197F2; --a4: #FF9A63; --a5: #E8C14A; --a6: #F27DB2; --a7: #7FD083; --a8: #FF8A90; --c1: #1D4FD8; --c2: #0B6E67; --c3: #6D32D9; --c4: #B23A0A; --c5: #8F5605; --c6: #BE185D; --c7: #13712F; --c1s: #A5C2FF; --c2s: #7CEBDD; --c3s: #CDBDFF; --c4s: #FFC08A; --c5s: #FDE68A; --c6s: #FBB0D5; --c7s: #95F0B2; --r1: #13712F; --r2: #8F5605; --r3: #B23A0A; --r4: #B91C1C; --r1s: #95F0B2; --r2s: #FDE68A; --r3s: #FFC08A; --r4s: #FCA5A5; --on-hue: #0C1222; color-scheme: dark; --bg: #0E3576; --surface: #123F88; --surface2: #164A9C; --ink: #F3F8FF; --muted: #BCD0EE; --line: #5F88C9; --line-d: #F3F8FF; --accent: #FFD24A; --accent-tint: #3A3A1A; --hl: #FFD24A; --hl-ink: #0B2550; --f-head: 'IBM Plex Mono', ui-monospace, monospace; --d-bar: #FFD24A; --red: #FFA3AA; }
+:root[data-district="brutal"] { --bg: #F1ECE0; --surface: #FFFFFF; --surface2: #F7F2E6; --ink: #111111; --muted: #3A3A3A; --line: #111111; --line-d: #111111; --accent: #2B4BF2; --accent-tint: #E3E8FF; --hl: #FFD60A; --hl-ink: #111111; --f-head: 'Space Grotesk', var(--f-body); --d-bar: #FFD60A; }
+:root[data-district="editorial"] { --bg: #FAF7F0; --surface: #FFFDF8; --surface2: #F2EDE1; --ink: #1A1714; --muted: #5B544A; --line: #D8CFBE; --line-d: #1A1714; --accent: #B0102A; --accent-tint: #F8E1E4; --hl: #F5E3A8; --hl-ink: #1A1714; --f-head: 'Fraunces', Georgia, serif; --d-bar: #B0102A; }
+:root[data-district="casefile"] { --bg: #D8C493; --surface: #F6EBC9; --surface2: #EEDFB4; --ink: #2A2016; --muted: #5A4A33; --line: #B59B63; --line-d: #2A2016; --accent: #A3231B; --accent-tint: #F3D8D2; --hl: #F8D867; --hl-ink: #2A2016; --f-head: 'Special Elite', 'Courier New', monospace; --d-bar: #C9A45C; }
+:root[data-district="comic"] { --bg: #FFF6DA; --surface: #FFFFFF; --surface2: #FFF0B8; --ink: #111111; --muted: #3B3B3B; --line: #111111; --line-d: #111111; --accent: #D90429; --accent-tint: #FFE0E5; --hl: #FFE14D; --hl-ink: #111111; --f-head: 'Bangers', var(--f-body); --d-bar: #D90429; }
+:root[data-district="poster"] { --bg: #FFF0DE; --surface: #FFFFFF; --surface2: #FFE1BE; --ink: #1B0C30; --muted: #4C3A62; --line: #1B0C30; --line-d: #1B0C30; --accent: #C43300; --accent-tint: #FFE0D1; --hl: #FFC400; --hl-ink: #1B0C30; --f-head: 'Anton', 'Arial Narrow', sans-serif; --d-bar: #FF5A1F; }
+:root[data-district="terminal"] { --red: #FF7C86; --red-tint: #3B1B22; --green: #5FD6A2; --green-tint: #123428; --amber: #FFC165; --amber-tint: #382A10; --a1: #7FA3FF; --a2: #4CD0CB; --a3: #C197F2; --a4: #FF9A63; --a5: #E8C14A; --a6: #F27DB2; --a7: #7FD083; --a8: #FF8A90; --c1: #1D4FD8; --c2: #0B6E67; --c3: #6D32D9; --c4: #B23A0A; --c5: #8F5605; --c6: #BE185D; --c7: #13712F; --c1s: #A5C2FF; --c2s: #7CEBDD; --c3s: #CDBDFF; --c4s: #FFC08A; --c5s: #FDE68A; --c6s: #FBB0D5; --c7s: #95F0B2; --r1: #13712F; --r2: #8F5605; --r3: #B23A0A; --r4: #B91C1C; --r1s: #95F0B2; --r2s: #FDE68A; --r3s: #FFC08A; --r4s: #FCA5A5; --on-hue: #0C1222; color-scheme: dark; --bg: #050A06; --surface: #0A140C; --surface2: #0F1E12; --ink: #B8FFC6; --muted: #86D897; --line: #1E6B32; --line-d: #B8FFC6; --accent: #3DFF73; --accent-tint: #0F2A16; --hl: #3DFF73; --hl-ink: #031006; --f-head: 'VT323', ui-monospace, monospace; --d-bar: #3DFF73; }
+:root[data-district="soc"] { --red: #FF7C86; --red-tint: #3B1B22; --green: #5FD6A2; --green-tint: #123428; --amber: #FFC165; --amber-tint: #382A10; --a1: #7FA3FF; --a2: #4CD0CB; --a3: #C197F2; --a4: #FF9A63; --a5: #E8C14A; --a6: #F27DB2; --a7: #7FD083; --a8: #FF8A90; --c1: #1D4FD8; --c2: #0B6E67; --c3: #6D32D9; --c4: #B23A0A; --c5: #8F5605; --c6: #BE185D; --c7: #13712F; --c1s: #A5C2FF; --c2s: #7CEBDD; --c3s: #CDBDFF; --c4s: #FFC08A; --c5s: #FDE68A; --c6s: #FBB0D5; --c7s: #95F0B2; --r1: #13712F; --r2: #8F5605; --r3: #B23A0A; --r4: #B91C1C; --r1s: #95F0B2; --r2s: #FDE68A; --r3s: #FFC08A; --r4s: #FCA5A5; --on-hue: #0C1222; color-scheme: dark; --bg: #0A0E18; --surface: #111827; --surface2: #18223A; --ink: #E6EDF7; --muted: #9FB0C8; --line: #27324A; --line-d: #E6EDF7; --accent: #22D3EE; --accent-tint: #0E2A33; --hl: #F59E0B; --hl-ink: #0A0E18; --f-head: 'IBM Plex Mono', ui-monospace, monospace; --d-bar: #22D3EE; }
+:root[data-district="paper"] { --bg: #E9E9E7; --surface: #FFFFFF; --surface2: #F2F2F0; --ink: #111111; --muted: #4A4A4A; --line: #C9C9C5; --line-d: #111111; --accent: #111111; --accent-tint: #EDEDED; --hl: #FFE45C; --hl-ink: #111111; --f-head: var(--f-body); --d-bar: #8A8A8A; }
+@media (prefers-color-scheme: dark) {
+  :root[data-district="transit"]:not([data-theme="light"]) { --bg: #0E1015; --surface: #171A21; --surface2: #1F232C; --ink: #EDEFF3; --muted: #A9B0BD; --line: #2B303B; --line-d: #EDEFF3; --accent: #FF6158; --accent-tint: #3A1715; --hl: #FFD329; --hl-ink: #15171D; }
+  :root[data-district="brutal"]:not([data-theme="light"]) { --bg: #111111; --surface: #1B1B1B; --surface2: #232323; --ink: #F4F4F4; --muted: #C8C8C8; --line: #F4F4F4; --line-d: #F4F4F4; --accent: #8FA2FF; --accent-tint: #1E2240; --hl: #FFD60A; --hl-ink: #111111; }
+  :root[data-district="editorial"]:not([data-theme="light"]) { --bg: #14120F; --surface: #1C1915; --surface2: #25211B; --ink: #F0E9DA; --muted: #BEB4A3; --line: #3A342A; --line-d: #F0E9DA; --accent: #FF7A85; --accent-tint: #3A1A1F; --hl: #5C4B1A; --hl-ink: #F7EBC5; }
+  :root[data-district="casefile"]:not([data-theme="light"]) { --bg: #1C1610; --surface: #2A2118; --surface2: #33291D; --ink: #F2E5C4; --muted: #CBB993; --line: #4D3E2A; --line-d: #F2E5C4; --accent: #FF7B6E; --accent-tint: #3D1E19; --hl: #6A561D; --hl-ink: #F8EBC7; }
+  :root[data-district="comic"]:not([data-theme="light"]) { --bg: #15121C; --surface: #201C29; --surface2: #2B2636; --ink: #F8F5FF; --muted: #CFC8DE; --line: #F8F5FF; --line-d: #F8F5FF; --accent: #FF5C7A; --accent-tint: #3F1A24; --hl: #FFE14D; --hl-ink: #111111; }
+  :root[data-district="poster"]:not([data-theme="light"]) { --bg: #1B0C30; --surface: #27133F; --surface2: #321B4F; --ink: #FFF0DE; --muted: #D9C9EB; --line: #FFF0DE; --line-d: #FFF0DE; --accent: #FF7A3D; --accent-tint: #3D1A12; --hl: #FFC400; --hl-ink: #1B0C30; }
+  :root[data-district="paper"]:not([data-theme="light"]) { --bg: #121212; --surface: #1B1B1B; --surface2: #242424; --ink: #F2F2F2; --muted: #BDBDBD; --line: #3A3A3A; --line-d: #F2F2F2; --accent: #F2F2F2; --accent-tint: #2A2A2A; --hl: #FFE45C; --hl-ink: #111111; }
+}
+:root[data-theme="dark"][data-district="transit"] { --bg: #0E1015; --surface: #171A21; --surface2: #1F232C; --ink: #EDEFF3; --muted: #A9B0BD; --line: #2B303B; --line-d: #EDEFF3; --accent: #FF6158; --accent-tint: #3A1715; --hl: #FFD329; --hl-ink: #15171D; }
+:root[data-theme="dark"][data-district="brutal"] { --bg: #111111; --surface: #1B1B1B; --surface2: #232323; --ink: #F4F4F4; --muted: #C8C8C8; --line: #F4F4F4; --line-d: #F4F4F4; --accent: #8FA2FF; --accent-tint: #1E2240; --hl: #FFD60A; --hl-ink: #111111; }
+:root[data-theme="dark"][data-district="editorial"] { --bg: #14120F; --surface: #1C1915; --surface2: #25211B; --ink: #F0E9DA; --muted: #BEB4A3; --line: #3A342A; --line-d: #F0E9DA; --accent: #FF7A85; --accent-tint: #3A1A1F; --hl: #5C4B1A; --hl-ink: #F7EBC5; }
+:root[data-theme="dark"][data-district="casefile"] { --bg: #1C1610; --surface: #2A2118; --surface2: #33291D; --ink: #F2E5C4; --muted: #CBB993; --line: #4D3E2A; --line-d: #F2E5C4; --accent: #FF7B6E; --accent-tint: #3D1E19; --hl: #6A561D; --hl-ink: #F8EBC7; }
+:root[data-theme="dark"][data-district="comic"] { --bg: #15121C; --surface: #201C29; --surface2: #2B2636; --ink: #F8F5FF; --muted: #CFC8DE; --line: #F8F5FF; --line-d: #F8F5FF; --accent: #FF5C7A; --accent-tint: #3F1A24; --hl: #FFE14D; --hl-ink: #111111; }
+:root[data-theme="dark"][data-district="poster"] { --bg: #1B0C30; --surface: #27133F; --surface2: #321B4F; --ink: #FFF0DE; --muted: #D9C9EB; --line: #FFF0DE; --line-d: #FFF0DE; --accent: #FF7A3D; --accent-tint: #3D1A12; --hl: #FFC400; --hl-ink: #1B0C30; }
+:root[data-theme="dark"][data-district="paper"] { --bg: #121212; --surface: #1B1B1B; --surface2: #242424; --ink: #F2F2F2; --muted: #BDBDBD; --line: #3A3A3A; --line-d: #F2F2F2; --accent: #F2F2F2; --accent-tint: #2A2A2A; --hl: #FFE45C; --hl-ink: #111111; }
+@media (prefers-color-scheme: light) {
+  :root[data-tint="cream"][data-district]:not([data-district="blueprint"]):not([data-district="terminal"]):not([data-district="soc"]) { --bg: #FAF5E4; --surface: #FFFCF0; --surface2: #F3ECD6; }
+  :root[data-tint="blue"][data-district]:not([data-district="blueprint"]):not([data-district="terminal"]):not([data-district="soc"]) { --bg: #E8F0FB; --surface: #F4F8FE; --surface2: #DCE7F7; }
+  :root[data-tint="green"][data-district]:not([data-district="blueprint"]):not([data-district="terminal"]):not([data-district="soc"]) { --bg: #E8F5EA; --surface: #F4FBF5; --surface2: #DAEEDD; }
+}
+
+/* shared shell: graphite top bar with the district's accent stripe */
+:root[data-district] .topbar { background: #15171D; border-bottom: 3px solid var(--d-bar, #DC241F); }
+:root[data-district] .topbar .brand { color: #FFFFFF; }
+:root[data-district] .nav a { color: #E9EBEF; }
+:root[data-district] .nav a:hover { background: rgba(255, 255, 255, .1); }
+:root[data-district] .nav a[aria-current="page"] { background: #FFD329; color: #15171D; }
+:root[data-district] .nav .aa { border-color: rgba(255, 255, 255, .45); }
+
+/* TRANSIT MAP: home, planner, checklist, flashcards */
+:root[data-district="transit"] .banner { background: var(--surface); color: var(--ink); border: 2px solid var(--line); border-left: 12px solid var(--hue, var(--accent)); border-radius: 6px; }
+:root[data-district="transit"] .banner .bi { width: 46px; height: 46px; border-radius: 50%; border: 6px solid var(--hue, var(--accent)); display: grid; place-items: center; box-sizing: border-box; }
+:root[data-district="transit"] .hero2 { background: #15171D; padding-bottom: 30px; }
+:root[data-district="transit"] .hero2::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 9px; background: linear-gradient(90deg, #2457D6 0 12.5%, #0B8480 12.5% 25%, #8240BE 25% 37.5%, #BE3F08 37.5% 50%, #C99A00 50% 62.5%, #B8226A 62.5% 75%, #2B7530 75% 87.5%, #B8242C 87.5% 100%); }
+:root[data-district="transit"] .hero2 .cd { background: #0B0C10; border-color: #30333B; }
+:root[data-district="transit"] .hero2 .cd b { font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #FFB000; }
+:root[data-district="transit"] .hero2 .kick { color: #FFD329; }
+.netmap { width: 100%; max-width: 560px; height: auto; display: block; margin: 6px auto 4px; }
+.netmap .nm-l { font: 700 11px var(--f-body); fill: var(--ink); }
+.netmap .nm-p { font: 800 12px var(--f-head); fill: var(--muted); letter-spacing: .06em; }
+.netmap .nm-n { font: 800 12px var(--f-body); fill: var(--on-hue); text-anchor: middle; dominant-baseline: central; }
+.netmap .nm-s { stroke: var(--c); stroke-width: 3; fill: var(--surface); }
+.netmap .nm-s.st, .netmap .nm-s.sec { fill: var(--c); }
+.netmap .nm-dot { fill: var(--surface); pointer-events: none; }
+.netmap a:focus-visible .nm-s { stroke: var(--ink); stroke-width: 4; }
+.netmap .nm-k { font: 400 11px var(--f-body); fill: var(--muted); }
+
+/* district previews on the home page area tiles */
+.atile.dist-blueprint { background-color: #0E3576; background-image: linear-gradient(rgba(255,255,255,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px); background-size: 16px 16px; color: #F3F8FF; border-radius: 2px; }
+.atile.dist-brutal { background: #FFD60A; color: #111111; border: 3px solid #111111; border-radius: 0; box-shadow: 5px 5px 0 #111111; }
+.atile.dist-editorial { background: #FAF7F0; color: #1A1714; border-top: 6px double #1A1714; border-radius: 0; }
+.atile.dist-casefile { background: #F3E3B5; color: #2A2016; border-radius: 0 12px 12px 12px; }
+.atile.dist-comic { background-color: #FFE14D; background-image: radial-gradient(rgba(0,0,0,.16) 1px, transparent 1.5px); background-size: 8px 8px; color: #111111; border: 3px solid #111111; border-radius: 6px; }
+.atile.dist-poster { background-color: #C43300; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.12) 0 12px, transparent 12px 24px); color: #FFF7EE; border-radius: 0; }
+.atile.dist-terminal { background: #050A06; color: #B8FFC6; border: 1px solid #3DFF73; border-radius: 0; }
+.atile.dist-soc { background-color: #111827; background-image: linear-gradient(135deg, #111827, #18223A); color: #E6EDF7; border-top: 4px solid #F59E0B; border-radius: 6px; }
+.atile.dist-blueprint .tab { background: #0E3576; color: #F3F8FF; } .atile.dist-brutal .tab { background: #111111; color: #FFD60A; }
+.atile.dist-editorial .tab { background: #1A1714; color: #FAF7F0; } .atile.dist-casefile .tab { background: #F3E3B5; color: #2A2016; }
+.atile.dist-comic .tab { background: #111111; color: #FFE14D; } .atile.dist-poster .tab { background: #1B0C30; color: #FFF0DE; }
+.atile.dist-terminal .tab { background: #3DFF73; color: #031006; } .atile.dist-soc .tab { background: #F59E0B; color: #0A0E18; }
+.atile.dist-blueprint b, .atile.dist-soc b { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+.atile.dist-brutal b { font-family: 'Space Grotesk', var(--f-body); } .atile.dist-editorial b { font-family: 'Fraunces', Georgia, serif; }
+.atile.dist-casefile b { font-family: 'Special Elite', 'Courier New', monospace; font-weight: 400; } .atile.dist-comic b { font-family: 'Bangers', var(--f-body); font-weight: 400; letter-spacing: .04em; font-size: 1.25rem; }
+.atile.dist-poster b { font-family: 'Anton', 'Arial Narrow', sans-serif; font-weight: 400; text-transform: uppercase; font-size: 1.2rem; } .atile.dist-terminal b { font-family: 'VT323', ui-monospace, monospace; font-weight: 400; font-size: 1.28rem; }
+
+/* BLUEPRINT: Area 1 */
+:root[data-district="blueprint"] body { background-image: linear-gradient(rgba(255,255,255,.11) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.11) 1px, transparent 1px), linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px); background-size: 48px 48px, 48px 48px, 12px 12px, 12px 12px; }
+:root[data-district="blueprint"] h1, :root[data-district="blueprint"] h2, :root[data-district="blueprint"] h3 { text-transform: uppercase; letter-spacing: .03em; }
+:root[data-district="blueprint"] .banner { background: var(--bg); color: var(--ink); border: 2px solid var(--ink); border-radius: 0; box-shadow: inset 0 0 0 5px var(--bg), inset 0 0 0 6px var(--ink); }
+:root[data-district="blueprint"] .paper, :root[data-district="blueprint"] .toplist li a, :root[data-district="blueprint"] .stat, :root[data-district="blueprint"] .tabs, :root[data-district="blueprint"] .btn, :root[data-district="blueprint"] .diagwrap, :root[data-district="blueprint"] .qbox, :root[data-district="blueprint"] .opt, :root[data-district="blueprint"] .tip { border-radius: 0; }
+
+/* NEO-BRUTALIST: Area 2 */
+:root[data-district="brutal"] .banner { background: var(--hl); color: #111111; border: 3px solid var(--line); border-radius: 0; box-shadow: 6px 6px 0 var(--line); }
+:root[data-district="brutal"] .paper, :root[data-district="brutal"] .toplist li a, :root[data-district="brutal"] .stat, :root[data-district="brutal"] .tabs, :root[data-district="brutal"] .diagwrap, :root[data-district="brutal"] .qbox { border: 3px solid var(--line); border-radius: 0; box-shadow: 5px 5px 0 var(--line); }
+:root[data-district="brutal"] .btn { border: 3px solid var(--line); border-radius: 0; box-shadow: 4px 4px 0 var(--line); }
+:root[data-district="brutal"] .btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--line); }
+:root[data-district="brutal"] .opt { border-radius: 0; border-width: 3px; }
+:root[data-district="brutal"] h1, :root[data-district="brutal"] h2 { letter-spacing: -0.02em; }
+:root[data-district="brutal"] .terms div { border-top: 2px solid var(--line); }
+
+/* EDITORIAL: Area 3 */
+:root[data-district="editorial"] .banner { background: transparent; color: var(--ink); border-top: 5px double var(--ink); border-bottom: 1px solid var(--ink); border-radius: 0; padding-left: 2px; padding-right: 2px; }
+:root[data-district="editorial"] .banner .bk { text-transform: uppercase; letter-spacing: .12em; color: var(--accent); font-size: .78rem; }
+:root[data-district="editorial"] .banner .bi { color: var(--accent); }
+:root[data-district="editorial"] .lede { border-left: 0; padding-left: 0; font-family: 'Fraunces', Georgia, serif; font-size: 1.22rem; }
+:root[data-district="editorial"] .lede::first-letter { float: left; font-size: 3.1em; line-height: .82; padding: 6px 8px 0 0; color: var(--accent); font-weight: 800; }
+:root[data-district="editorial"] h2 { border-top: 1px solid var(--ink); padding-top: 8px; }
+:root[data-district="editorial"] .paper, :root[data-district="editorial"] .toplist li a, :root[data-district="editorial"] .stat, :root[data-district="editorial"] .tabs, :root[data-district="editorial"] .btn, :root[data-district="editorial"] .diagwrap, :root[data-district="editorial"] .qbox, :root[data-district="editorial"] .opt { border-radius: 2px; }
+
+/* CASE FILE: Area 4 */
+:root[data-district="casefile"] body { background-image: radial-gradient(rgba(70, 45, 10, .10) 1px, transparent 1.5px); background-size: 6px 6px; }
+:root[data-district="casefile"] .banner { background: var(--surface); color: var(--ink); border: 2px solid var(--line); border-radius: 0 8px 8px 8px; position: relative; margin-top: 30px; }
+:root[data-district="casefile"] .banner::before { content: 'CASE FILE'; position: absolute; left: -2px; top: -26px; padding: 3px 14px; background: var(--surface); border: 2px solid var(--line); border-bottom: 0; border-radius: 8px 8px 0 0; font-family: 'Special Elite', 'Courier New', monospace; font-size: .82rem; color: var(--ink); }
+:root[data-district="casefile"] .banner::after { content: 'REVISE'; position: absolute; right: 10px; top: -24px; transform: rotate(-7deg); border: 3px solid var(--accent); color: var(--accent); padding: 0 8px; font-family: 'Special Elite', 'Courier New', monospace; font-size: .85rem; letter-spacing: .12em; background: var(--surface); }
+:root[data-district="casefile"] .terms dt, :root[data-district="casefile"] .tabs a { font-family: 'Special Elite', 'Courier New', monospace; }
+:root[data-district="casefile"] .paper, :root[data-district="casefile"] .toplist li a, :root[data-district="casefile"] .stat, :root[data-district="casefile"] .diagwrap, :root[data-district="casefile"] .qbox, :root[data-district="casefile"] .opt { border-radius: 2px; }
+
+/* COMIC STORYBOARD: Area 5 */
+:root[data-district="comic"] body { background-image: radial-gradient(rgba(0, 0, 0, .09) 1.1px, transparent 1.6px); background-size: 9px 9px; }
+:root[data-district="comic"] h1, :root[data-district="comic"] h2, :root[data-district="comic"] h3 { font-weight: 400; letter-spacing: .04em; }
+:root[data-district="comic"] h1 { font-size: clamp(2.3rem, 9vw, 3.3rem); }
+:root[data-district="comic"] h2 { display: inline-block; background: var(--hl); color: #111111; padding: 2px 10px; border: 2px solid var(--line); transform: rotate(-1deg); }
+:root[data-district="comic"] .banner { background: var(--hl); color: #111111; border: 3px solid var(--line); border-radius: 6px; box-shadow: 5px 5px 0 var(--line); }
+:root[data-district="comic"] .paper, :root[data-district="comic"] .toplist li a, :root[data-district="comic"] .stat, :root[data-district="comic"] .tabs, :root[data-district="comic"] .diagwrap, :root[data-district="comic"] .qbox, :root[data-district="comic"] .btn, :root[data-district="comic"] .opt { border-width: 3px; border-color: var(--line); border-radius: 6px; }
+
+/* POSTER: Area 6 */
+:root[data-district="poster"] h1, :root[data-district="poster"] h2, :root[data-district="poster"] h3 { text-transform: uppercase; font-weight: 400; letter-spacing: .01em; }
+:root[data-district="poster"] h1 { font-size: clamp(2.4rem, 10vw, 3.6rem); }
+:root[data-district="poster"] .banner { background-color: #C43300; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.12) 0 14px, transparent 14px 28px); color: #FFF7EE; border-radius: 0; }
+:root[data-district="poster"] .paper, :root[data-district="poster"] .toplist li a, :root[data-district="poster"] .stat, :root[data-district="poster"] .tabs, :root[data-district="poster"] .btn, :root[data-district="poster"] .diagwrap, :root[data-district="poster"] .qbox, :root[data-district="poster"] .opt { border-radius: 0; border-width: 3px; }
+:root[data-district="poster"] .lede { border-left-width: 10px; font-weight: 700; }
+
+/* RETRO TERMINAL: Area 7 */
+:root[data-district="terminal"] body { background-image: repeating-linear-gradient(0deg, rgba(61, 255, 115, .035) 0 1px, transparent 1px 3px); }
+:root[data-district="terminal"] h1, :root[data-district="terminal"] h2, :root[data-district="terminal"] h3 { font-weight: 400; letter-spacing: .02em; }
+:root[data-district="terminal"] h1 { font-size: clamp(2.6rem, 10vw, 3.6rem); }
+:root[data-district="terminal"] h2 { font-size: 1.9rem; }
+:root[data-district="terminal"] .banner { background: var(--surface); color: var(--ink); border: 1px solid var(--accent); border-radius: 0; box-shadow: 0 0 18px rgba(61, 255, 115, .18); }
+:root[data-district="terminal"] .banner h1::before { content: '> '; color: var(--accent); }
+:root[data-district="terminal"] .banner h1::after { content: '_'; color: var(--accent); animation: d-blink 1.1s steps(1) infinite; }
+@keyframes d-blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { :root[data-district="terminal"] .banner h1::after { animation: none; } }
+:root[data-district="terminal"] .btn, :root[data-district="terminal"] .tabs a, :root[data-district="terminal"] .chip, :root[data-district="terminal"] .crumbs { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+:root[data-district="terminal"] .tip { background: var(--surface2); color: var(--ink); border: 1px dashed var(--accent); }
+:root[data-district="terminal"] .paper, :root[data-district="terminal"] .toplist li a, :root[data-district="terminal"] .stat, :root[data-district="terminal"] .tabs, :root[data-district="terminal"] .btn, :root[data-district="terminal"] .diagwrap, :root[data-district="terminal"] .tip, :root[data-district="terminal"] .chip, :root[data-district="terminal"] .qbox, :root[data-district="terminal"] .opt { border-radius: 0; }
+
+/* SOC DASHBOARD: Area 8 */
+:root[data-district="soc"] body { background-image: radial-gradient(circle at 15% 0%, rgba(34, 211, 238, .09), transparent 45%), linear-gradient(rgba(255, 255, 255, .025) 1px, transparent 1px); background-size: auto, 100% 32px; }
+:root[data-district="soc"] h2 { text-transform: uppercase; font-size: 1.12rem; letter-spacing: .08em; color: var(--accent); }
+:root[data-district="soc"] .banner { background-color: #111827; background-image: linear-gradient(135deg, #111827, #1B2742); color: var(--ink); border: 1px solid var(--line); border-top: 4px solid var(--hl); border-radius: 6px; }
+:root[data-district="soc"] .paper, :root[data-district="soc"] .stat, :root[data-district="soc"] .diagwrap, :root[data-district="soc"] .qbox { border: 1px solid var(--line); border-radius: 6px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .04); }
+:root[data-district="soc"] .toplist li a { border-left: 4px solid var(--hue); }
+
+/* EXAM PAPER: mocks */
+:root[data-district="paper"] .paper { border-radius: 0; }
+
+/* key-term names: dark text with a coloured underline where the area colour is too faint on the background */
+:root[data-district="brutal"] .terms dt, :root[data-district="casefile"] .terms dt { color: var(--ink); text-decoration: underline 3px var(--hue); text-underline-offset: 4px; }
+@media (prefers-color-scheme: light) { :root[data-district="casefile"]:not([data-theme="dark"]) { --amber: #8A5000; } }
+.banner h1 { overflow-wrap: break-word; min-width: 0; }
+:root[data-district="poster"] .banner h1 { font-size: clamp(1.7rem, 7.6vw, 2.6rem); }
+:root[data-district="terminal"] .banner h1 { font-size: clamp(2rem, 9vw, 2.9rem); }
+:root[data-district="comic"] .banner h1 { font-size: clamp(1.8rem, 8vw, 2.7rem); }
+.atile b { overflow-wrap: break-word; min-width: 0; }
 
 </style>
 </head>
@@ -4393,7 +4552,7 @@ MOCKS[4] = { paper: 2, title: 'Mock Paper 2, set B', short: 'Mock 2B', areas: 'A
     const cta = inProg ? `<a class="btn hero-cta" href="#/mock/${inProg}/q/0">Resume ${esc(MOCKS[inProg].title)}</a>` : `<a class="btn hero-cta" href="#/recall/daily/x">Start today's revision</a>`;
     const cd = (d, p) => `<div class="cd"><b>${d > 0 ? d : 'Done'}</b><span>${d > 0 ? 'days to Paper ' + p : 'Paper ' + p}</span><small>${PAPER_TEXT[p]}</small><span class="cdbar" title="${gone(p)}% of the revision year has gone" aria-hidden="true"><i style="width:${gone(p)}%"></i></span></div>`;
     const stat = (ic, hc, val, lab, href) => `<a class="stat st2 ${hc}" href="${href}"><span class="sti">${iconSvg(ic, 18)}</span><b>${val}</b><span>${lab}</span></a>`;
-    const tiles = p => areasIn(p).map(a => `<a class="atile ${AREAS[a].hue}" href="#/area/${a}"><span class="bgi" aria-hidden="true">${iconSvg(AREA_ICON[a], 96)}</span><span class="tab">Area ${a}</span><span class="ai">${iconSvg(AREA_ICON[a], 30)}</span><b>${esc(AREAS[a].name)}</b><span class="meta">${topicsIn(a).length} topics</span><span class="ar">${ring(areaScore(a), 52, 6)}</span></a>`).join('');
+    const tiles = p => areasIn(p).map(a => `<a class="atile ${AREAS[a].hue} dist-${AREA_DISTRICT[a]}" href="#/area/${a}"><span class="bgi" aria-hidden="true">${iconSvg(AREA_ICON[a], 96)}</span><span class="tab">Area ${a}</span><span class="ai">${iconSvg(AREA_ICON[a], 30)}</span><b>${esc(AREAS[a].name)}</b><span class="meta">${topicsIn(a).length} topics</span><span class="ar">${ring(areaScore(a), 52, 6)}</span></a>`).join('');
     const qa = [['#/planner', 'cal', 'Revision planner', 'This week: ' + tdone + ' of ' + tasks.length + ' done', 'a4'], ['#/flash', 'cards', 'Flashcards', due ? due + ' due today' : 'Learn new cards', 'a8'], ['#/recall/daily/x', 'pen', 'Written recall 10', 'Type answers, like the real exam', 'a1'], ['#/recall/skills/x', 'gear', 'Skills drills', 'Formulas, tables and diagrams', 'a2'], ['#/quiz/daily/x', 'check', 'Daily 10 quiz', 'Quick multiple choice', 'a3'], ['#/quiz/challenge/x', 'target', 'Challenge round', 'The hardest questions', 'a6'], ['#/checklist', 'table', 'Spec checklist', 'Rate every spec point', 'a7'], ['#/examday', 'flag', 'Exam day guide', 'Timing plan and checklists', 'a5'], ['#/technique', 'bulb', 'Exam technique', 'Command words and marks', 'a1'], ['#/practice', 'cards', 'Build a quiz', 'Pick the area and difficulty', 'a3'], ['#/share', 'users', 'Share progress', 'Send to your teacher or another device', 'a2']];
     setView(`<div class="wrap home">
       <section class="hero hero2 hero3">${heroNet()}<div class="hero-in">
@@ -4407,6 +4566,7 @@ MOCKS[4] = { paper: 2, title: 'Mock Paper 2, set B', short: 'Mock 2B', areas: 'A
         <div class="stat big"><span class="ov">${ring(overall, 72, 8)}</span><div><b>Overall</b><span>average score across all 47 topics</span></div></div>
         ${stat('shield', 'a7', secure + '<small> of 47</small>', 'topics secure', '#/paper/1')}${stat('check', 'a1', started + '<small> of 47</small>', 'topics started', '#/paper/1')}${stat('table', 'a3', specGreen + '<small> of ' + CHECK.length + '</small>', 'spec points green', '#/checklist')}${stat('clock', 'a6', bestMock === null ? 'None yet' : bestMock + '%', 'best mock score', '#/mock/1')}
       </section>
+      <section class="netwrap"><h2 class="deco">Your revision network</h2><p class="small muted" style="margin-top:0">One line for each area and one station for each topic. Tap a station to go there.</p>${networkMap()}</section>
       ${[1, 2].map(p => `<section class="psec"><div class="phead"><h2>Paper ${p}</h2><span>${PAPER_TEXT[p]}. 90 marks in 2 hours 15 minutes.</span></div><div class="areagrid">${tiles(p)}</div><div class="btnrow">${mocksFor(p).map(k => `<a class="btn hl" href="#/mock/${k}">${iconSvg('clock', 20)} ${MOCKS[k].short}</a>`).join('')}<a class="btn" href="#/recall/paper/${p}">Written recall</a><a class="btn" href="#/paper/${p}">Paper ${p} overview</a></div></section>`).join('')}
       <h2 class="deco">Quick practice</h2>
       <div class="qagrid">${qa.map(x => `<a class="qa ${x[4]}" href="${x[0]}"><span class="qi">${iconSvg(x[1], 26)}</span><b>${x[2]}</b><span>${x[3]}</span></a>`).join('')}</div>
@@ -5279,7 +5439,7 @@ MOCKS[4] = { paper: 2, title: 'Mock Paper 2, set B', short: 'Mock 2B', areas: 'A
       <h2>Between Paper 1 and Paper 2</h2>
       <p>There is a week between the papers. Take the evening after Paper 1 off, then switch to Areas 4 to 8: do their flashcards and written recall, and sit ${mocksFor(2).map(k => `<a href="#/mock/${k}">${esc(MOCKS[k].short)}</a>`).join(' or ')} under timed conditions if you have not already.</p>
       <h2>If you feel nervous</h2>
-      <p>Nerves are normal and can help you focus. If your mind goes blank, put your pen down, breathe slowly for a few breaths, then start with a question you know you can answer. If worry is getting in the way before the exams, talk to your tutor or the college support team early.</p></div>`);
+      <p>Nerves are normal and can help you focus. If your mind goes blank, put your pen down, breathe slowly for a few breaths, then start with a question you know you can answer. If worry is getting in the way before the exams, talk to your tutor or the Barnsley College support team early.</p></div>`);
     const upd = () => { P.edStart = $('#edstart').value || '09:00'; P.edExtra = +$('#edextra').value || 0; save(); $('#edtime').innerHTML = edTiming(); };
     $('#edstart').addEventListener('change', upd); $('#edextra').addEventListener('change', upd);
   }
@@ -5363,12 +5523,47 @@ MOCKS[4] = { paper: 2, title: 'Mock Paper 2, set B', short: 'Mock 2B', areas: 'A
   }
   new MutationObserver(decorate).observe(app, { childList: true });
 
+  /* ---------- districts: one shell, a visual style for each area of the portal ---------- */
+  const AREA_DISTRICT = { 1: 'blueprint', 2: 'brutal', 3: 'editorial', 4: 'casefile', 5: 'comic', 6: 'poster', 7: 'terminal', 8: 'soc' };
+  function districtFor(h) {
+    const p = String(h || '').replace(/^#\/?/, '').split('/'), a = p[0] || '';
+    const ofTopic = id => { const t = topicById[id]; return t ? AREA_DISTRICT[t.area] : 'transit'; };
+    const ofArea = n => AREA_DISTRICT[+n] || 'transit';
+    if (a === 'area') return ofArea(p[1]);
+    if (a === 'topic') return ofTopic(p[1]);
+    if ((a === 'quiz' || a === 'recall') && p[1] === 'topic') return ofTopic(p[2]);
+    if ((a === 'quiz' || a === 'recall') && p[1] === 'area') return ofArea(p[2]);
+    if (a === 'flash' && p[2] === 'topic') return ofTopic(p[3]);
+    if (a === 'flash' && p[2] === 'area') return ofArea(p[3]);
+    if (a === 'exam') { const x = examById[p[1]]; return x ? ofTopic(x.topic) : 'transit'; }
+    if (a === 'mock') return 'paper';
+    return 'transit';
+  }
+  function networkMap() {
+    const x0 = 40, x1 = 348, rows = Object.keys(AREAS).map(Number);
+    let o = '<text x="4" y="14" class="nm-p">PAPER 1</text>', yEnd = 0;
+    rows.forEach((a, i) => {
+      const y = 38 + i * 34 + (a >= 4 ? 16 : 0), ts = topicsIn(a);
+      if (a === 4) o += `<text x="4" y="${y - 26}" class="nm-p">PAPER 2</text>`;
+      o += `<text x="${x0}" y="${y - 10}" class="nm-l">${esc(AREAS[a].name)}</text><line x1="${x0}" y1="${y}" x2="${x1}" y2="${y}" stroke="var(--a${a})" stroke-width="6" stroke-linecap="round"/><circle cx="20" cy="${y}" r="12" fill="var(--a${a})"/><text x="20" y="${y}" class="nm-n">${a}</text>`;
+      ts.forEach((t, k) => {
+        const x = ts.length === 1 ? (x0 + x1) / 2 : x0 + 8 + k * ((x1 - x0 - 16) / (ts.length - 1)), b = best(t.id), st = b === null ? 'ns' : b >= 80 ? 'sec' : 'st';
+        o += `<a href="#/topic/${t.id}" aria-label="${esc(t.id + ' ' + t.title + (b === null ? ', not started' : ', ' + b + '%'))}"><circle cx="${x.toFixed(1)}" cy="${y}" r="${st === 'sec' ? 7.5 : 6}" class="nm-s ${st}" style="--c: var(--a${a})"/>${st === 'sec' ? `<circle cx="${x.toFixed(1)}" cy="${y}" r="2.6" class="nm-dot"/>` : ''}</a>`;
+      });
+      yEnd = y;
+    });
+    const ly = yEnd + 30;
+    o += `<circle cx="20" cy="${ly}" r="6" class="nm-s ns" style="--c: var(--muted)"/><text x="32" y="${ly + 4}" class="nm-k">Not started</text><circle cx="122" cy="${ly}" r="6" class="nm-s st" style="--c: var(--muted)"/><text x="134" y="${ly + 4}" class="nm-k">Started</text><circle cx="214" cy="${ly}" r="7.5" class="nm-s sec" style="--c: var(--muted)"/><circle cx="214" cy="${ly}" r="2.6" class="nm-dot"/><text x="227" y="${ly + 4}" class="nm-k">Secure (80%+)</text>`;
+    return `<svg viewBox="0 0 360 ${ly + 14}" class="netmap" role="group" aria-label="Revision network: one line for each content area, one station for each topic">${o}</svg>`;
+  }
+
   /* ---------- routing and events ---------- */
   function setNav(a) {
     document.querySelectorAll('.nav a').forEach(l => { if (l.dataset.nav === a) l.setAttribute('aria-current', 'page'); else l.removeAttribute('aria-current'); });
   }
   function route() {
     applyA11y();
+    document.documentElement.dataset.district = districtFor(location.hash || '#/');
     clearTimer();
     const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean).map(decodeURIComponent);
     const [a, b, c] = parts;
@@ -5465,7 +5660,7 @@ MOCKS[4] = { paper: 2, title: 'Mock Paper 2, set B', short: 'Mock 2B', areas: 'A
   window.addEventListener('hashchange', route);
   route();
 
-  window.DSS = { stampHtml: (a, b, c) => stampHtml(a, b, c), MISTAKES, TOPICS, EXAMQ, AREAS, RECALL, MOCKS, CHECK, LVX, prep, mark, markRecall, shuffle, P: () => P, topicById, FL: { cards, dayNum, weekStart }, SH: { makeCode, readCode, makeBackup, readBackup, summary } };
+  window.DSS = { districtFor: h => districtFor(h), stampHtml: (a, b, c) => stampHtml(a, b, c), MISTAKES, TOPICS, EXAMQ, AREAS, RECALL, MOCKS, CHECK, LVX, prep, mark, markRecall, shuffle, P: () => P, topicById, FL: { cards, dayNum, weekStart }, SH: { makeCode, readCode, makeBackup, readBackup, summary } };
 })();
 
 </script>
